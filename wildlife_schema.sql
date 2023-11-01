@@ -7,6 +7,7 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- -----------------------------------------------------
 -- Schema wildlife_schema
 -- -----------------------------------------------------
+DROP SCHEMA IF EXISTS `wildlife_schema` ;
 
 -- -----------------------------------------------------
 -- Schema wildlife_schema
@@ -17,6 +18,8 @@ USE `wildlife_schema` ;
 -- -----------------------------------------------------
 -- Table `wildlife_schema`.`users`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `wildlife_schema`.`users` ;
+
 CREATE TABLE IF NOT EXISTS `wildlife_schema`.`users` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `firstName` VARCHAR(255) NULL,
@@ -32,6 +35,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `wildlife_schema`.`animals`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `wildlife_schema`.`animals` ;
+
 CREATE TABLE IF NOT EXISTS `wildlife_schema`.`animals` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `nickName` VARCHAR(255) NULL,
@@ -40,14 +45,14 @@ CREATE TABLE IF NOT EXISTS `wildlife_schema`.`animals` (
   `injury` VARCHAR(255) NULL,
   `createdAt` DATETIME NULL DEFAULT NOW(),
   `updatedAt` DATETIME NULL DEFAULT NOW() ON UPDATE NOW(),
-  `users_id` INT NOT NULL,
+  `user_id` INT NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_animals_users_idx` (`users_id` ASC) VISIBLE,
+  INDEX `fk_animals_users_idx` (`user_id` ASC) VISIBLE,
   CONSTRAINT `fk_animals_users`
-    FOREIGN KEY (`users_id`)
+    FOREIGN KEY (`user_id`)
     REFERENCES `wildlife_schema`.`users` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
