@@ -8,6 +8,7 @@ bcrypt = Bcrypt(app)
 
 EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
 class User:
+    db = 'wildlife_schema'
     def __init__(self, data):
         self.id = data['id']
         self.firstName = data['firstName']
@@ -18,36 +19,41 @@ class User:
         self.updated_at = data['updated_at']
         self.animals = []
 
+        def fullName(self):
+            return f'{self.firstName} {self.lastName}'
+
         #  validates register / login
     @staticmethod
     def validate_user(user):
         is_valid = True
+        query = 'SELECT * FROM user WHERE email = %(email)s;'
+        results = connectToMySQL(User.db).query_db(query, user)
 # Name validation 
         if len(user['first_name']) < 2:
+            is_valid = False
             flash("First name must be at least 2 characters")
-            is_valid = False
         if len(user['last_name']) < 2:
-            flash("Last name must be at least 2 characters")
             is_valid = False
+            flash("Last name must be at least 2 characters")
 # Email validation
         if not EMAIL_REGEX.match(user['email']):
+            is_valid = False
             flash("Invalid email address!")
+        if len(results) >= 1:
             is_valid = False
-        if User.get_user_by_email(user['email']):
             flash('That email is already in use')
-            is_valid = False
 # Password validation
         if len(user['password']) < 8:
+            is_valid = False
             flash("Password must be at least 8 characters")
-            is_valid = False
         if user['password'] != user['con_password']:
-            flash("Passwords do not match")
             is_valid = False
+            flash("Passwords do not match")
         return is_valid
 
     @staticmethod
     def login(data):
-        this_user = User.get_user_by_email(data['email'])
+        this_user = User.getEmail(data['email'])
         if this_user:
             if bcrypt.check_password_hash(this_user.password, data['password']):
                 session['user_id'] = this_user.id
@@ -58,7 +64,7 @@ class User:
 
 #  Saves data to db
     @classmethod
-    def create_user(cls, user_info):
+    def create_user(cls, data):
         if not cls.validate_user(user_info):
             return False
         user_info = cls.run_user_data(user_info)
@@ -66,22 +72,10 @@ class User:
         INSERT INTO users (first_name, last_name, email, password)
         VALUES (%(first_name)s, %(last_name)s, %(email)s, %(password)s)
         ;"""
-        user_id = connectToMySQL('tv_shows').query_db(query, user_info)
+        user_id = connectToMySQL(cls.db).query_db(query, data)
         session['user_id'] = user_id
-        session['user_name'] = f'{user_info["first_name"]} {user_info["last_name"]}'
+        session['user_name'] = f'{user_info["firstName"]} {user_info["lastName"]}'
         return user_id
-    
-    @classmethod
-    def get_user_by_email(cls, email):
-        data = {'email': email}
-        query = """
-        SELECT *
-        FROM users
-        WHERE email = %(email)s;"""
-        user_data = connectToMySQL('tv_shows').query_db(query, data)
-        if user_data:
-            return cls(user_data[0])
-        return False
     
     @staticmethod
     def run_user_data(data):
@@ -93,3 +87,49 @@ class User:
         }
         print('!?!?!?!?!?!?', run_data)
         return(run_data)
+    
+    @classmethod
+    def getAll(cls):
+        query = 'SELECT * FROM users;'
+        results = connectToMySQL(cls.db).query_db(query)
+        users = []
+        for row in results:
+            users.append(cls(row))
+        return users
+    
+    @classmethod
+    def getOne(cls, data):
+        query = "SELECT * FROM users WHERE id = %(id)s;"
+        results = connectToMySQL(cls.db).query_db(query, data)
+        if len(results) < 1:
+            return False
+        return cls(results[0])
+    
+    @classmethod
+    def getEmail(cls, data):
+        query = "SELECT * FROM users WHERE email = %(email)s;"
+        results = connectToMySQL(cls.db).query_db(query, data)
+        if len(results) < 1:
+            return False
+        return cls(results[0])
+    
+    @classmethod
+    def save(cls, data):
+        query ="""INSERT INTO users 
+        (firstName, lastName, email, password) VALUES
+        (%(firstName)s, %(lastName)s, %(email)s, %(password)s);"""
+        return connectToMySQL(cls.db).query_db(query, data)
+    
+    @classmethod
+    def update(cls, data):
+        query = """UPDATE users 
+        SET
+        firstName = %(firstName)s,
+        lastName = %(lastName)s,
+        email = %(email)s,
+        password = %(password)s"""
+
+    @classmethod
+    def delete(cls, data):
+        query = 'DELETE FROM users WHERE id = %(id)s;'
+        return connectToMySQL(cls.db).query_db(query, data)
