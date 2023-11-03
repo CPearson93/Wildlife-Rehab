@@ -15,8 +15,8 @@ class User:
         self.lastName = data['lastName']
         self.email = data['email']
         self.password = data['password']
-        self.created_at = data['created_at']
-        self.updated_at = data['updated_at']
+        self.createdAt = data['createdAt']
+        self.updateAt = data['updateAt']
         self.animals = []
 
         def fullName(self):
@@ -72,7 +72,7 @@ class User:
         INSERT INTO users (firstName, lastName, email, password)
         VALUES (%(firstName)s, %(lastName)s, %(email)s, %(password)s)
         ;"""
-        user_id = connectToMySQL(cls.db).query_db(query, data)
+        user_id = connectToMySQL(cls.db).query_db(query, user_info)
         session['user_id'] = user_id
         session['user_name'] = f'{user_info["firstName"]} {user_info["lastName"]}'
         return user_id
@@ -106,7 +106,8 @@ class User:
         return cls(results[0])
     
     @classmethod
-    def getEmail(cls, data):
+    def getEmail(cls, email):
+        data = {'email': email}
         query = "SELECT * FROM users WHERE email = %(email)s;"
         results = connectToMySQL(cls.db).query_db(query, data)
         if results:
