@@ -8,6 +8,41 @@
     <title>Wildlife Rescue and Rehabilitation</title>
 </head>
 <body>
-    <h1>Update Animal</h1>
+    <div id="wrapper">
+        <div>
+            <h1>Add a New Show!</h1>
+        </div>
+        <div id="nav-links">
+            <h2></h2>
+            <a href="/shows">TV Shows</a>
+            <a href="/logout">Logout</a>
+        </div>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        {% for message in messages %}
+        <p>{{message}}</p>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+        <div id="main-body">
+            {% for show in shows %}
+            <form action="/shows/change/{{show.id}}" method="post">
+                <div id="left-col">
+                        <label for="title">Title:</label>
+                        <label for="network">Network:</label>
+                        <label for="release_date">Release Date:</label>
+                        <label id="desc-label" for="description">Description:</label>
+                        <input id="sub-button" type="submit" value="Update">
+                    </div>
+                    <div id="right-col">
+                        <input class="form-input" type="text" name="title" value="{{show.title}}">
+                        <input class="form-input" type="text" name="network" value="{{show.network}}">
+                        <input class="form-input" type="date" value="{{show.release_date}}" name="release_date">
+                        <textarea class="form-input" name="description" cols="20" rows="3">{{show.description}}</textarea>
+                    </div>
+                    {% endfor %}
+            </form>
+        </div>
+    </div>
 </body>
 </html>

@@ -26,13 +26,13 @@ class User:
     @staticmethod
     def validate_user(user):
         is_valid = True
-        query = 'SELECT * FROM user WHERE email = %(email)s;'
+        query = 'SELECT * FROM users WHERE email = %(email)s;'
         results = connectToMySQL(User.db).query_db(query, user)
 # Name validation 
-        if len(user['first_name']) < 2:
+        if len(user['firstName']) < 2:
             is_valid = False
             flash("First name must be at least 2 characters")
-        if len(user['last_name']) < 2:
+        if len(user['lastName']) < 2:
             is_valid = False
             flash("Last name must be at least 2 characters")
 # Email validation
@@ -57,7 +57,7 @@ class User:
         if this_user:
             if bcrypt.check_password_hash(this_user.password, data['password']):
                 session['user_id'] = this_user.id
-                session['user_name'] = f'{this_user.first_name} {this_user.last_name}'
+                session['user_name'] = f'{this_user.firstName} {this_user.lastName}'
                 return True
         flash("Your login email or password was wrong.")
         return False
@@ -65,12 +65,12 @@ class User:
 #  Saves data to db
     @classmethod
     def create_user(cls, data):
-        if not cls.validate_user(user_info):
+        if not cls.validate_user(data):
             return False
-        user_info = cls.run_user_data(user_info)
+        user_info = cls.register(data)
         query = """
-        INSERT INTO users (first_name, last_name, email, password)
-        VALUES (%(first_name)s, %(last_name)s, %(email)s, %(password)s)
+        INSERT INTO users (firstName, lastName, email, password)
+        VALUES (%(firstName)s, %(lastName)s, %(email)s, %(password)s)
         ;"""
         user_id = connectToMySQL(cls.db).query_db(query, data)
         session['user_id'] = user_id
@@ -78,11 +78,11 @@ class User:
         return user_id
     
     @staticmethod
-    def run_user_data(data):
+    def register(data):
         run_data = {
             'email': data['email'],
-            'first_name': data['first_name'],
-            'last_name': data['last_name'],
+            'firstName': data['firstName'],
+            'lastName': data['lastName'],
             'password': bcrypt.generate_password_hash(data['password'])
         }
         print('!?!?!?!?!?!?', run_data)
@@ -109,9 +109,9 @@ class User:
     def getEmail(cls, data):
         query = "SELECT * FROM users WHERE email = %(email)s;"
         results = connectToMySQL(cls.db).query_db(query, data)
-        if len(results) < 1:
-            return False
-        return cls(results[0])
+        if results:
+            return cls(results[0])
+        return False
     
     @classmethod
     def save(cls, data):

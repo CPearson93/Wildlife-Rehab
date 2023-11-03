@@ -8,6 +8,40 @@
     <title>Wildlife Rescue and Rehabilitation</title>
 </head>
 <body>
-    <h1>Animal List</h1>
+    <div id="wrapper">
+        <div>
+            <h1>Welcome Back {{session['user_name']}}!</h1>
+        </div>
+        <div id="nav-links">
+            <a href="/shows/new">+ Create</a>
+            <a href="/logout">Logout</a>
+        </div>
+        <div id="shows-table">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Network</th>
+                        <th>Release Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for show in shows %}
+                    <tr>
+                        <td>{{show.title}}</td>
+                        <td>{{show.network}}</td>
+                        <td>{{show.release_date}}</td>
+                        {% if show.creator.id == session['user_id'] %}
+                        <td><a id="edit-button" href="/shows/{{show.id}}">View</a> <a id="edit-button" href="/shows/edit/{{show.id}}">Edit</a> <a id="delete-button"href="/delete/{{show.id}}">Delete</a></td>
+                        {% else %}
+                        <td><a href="/shows/{{show.id}}">View</a></td>
+                        {% endif %}
+                        {% endfor %}
+                    </tr>
+                </tbody>
+            </table>
+        </div> 
+    </div>
 </body>
 </html>

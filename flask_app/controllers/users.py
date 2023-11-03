@@ -9,6 +9,25 @@ bcrypt = Bcrypt(app)
 def index():
     return render_template("home.html")
 
-@app.route("/login")
-def login():
+@app.route("/logreg")
+def loginPage():
     return render_template("login.html")
+
+# Register user info to DB & hash password
+@app.route("/register", methods=['POST'])
+def create_user():
+    if user.User.create_user(request.form):
+        return redirect('/animalList')
+    return redirect('/logreg')
+
+@app.route("/login", methods = ['POST'])
+def login():
+    if user.User.login(request.form):
+        return redirect("/animalList")
+    return redirect("/logreg")
+
+# Logout clear session
+@app.route("/logout")
+def logout():
+    session.clear()
+    return redirect("/")
