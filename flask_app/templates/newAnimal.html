@@ -14,7 +14,7 @@
         </div>
         <div id="nav-links">
             <h2></h2>
-            <a href="/shows">TV Shows</a>
+            <a href="/animalList">TV Shows</a>
             <a href="/logout">Logout</a>
         </div>
         {% with messages = get_flashed_messages() %}
@@ -25,19 +25,19 @@
         {% endif %}
         {% endwith %}
         <div id="main-body">
-            <form action="/shows/create" method="post">
+            <form action="/animal/create" method="post">
                 <div id="left-col">
-                        <label for="title">Title:</label>
-                        <label for="network">Network:</label>
-                        <label for="release_date">Release Date:</label>
-                        <label id="desc-label" for="description">Description:</label>
+                        <label for="nickName">Nickname:</label>
+                        <label for="species">Species:</label>
+                        <label for="locationFound">locationFound:</label>
+                        <label id="injury" for="description">Injury:</label>
                         <input id="sub-button" type="submit" value="Add">
                     </div>
                     <div id="right-col">
-                        <input class="form-input" type="text" name="title">
-                        <input class="form-input" type="text" name="network">
-                        <input class="form-input" type="date" value="" name="release_date">
-                        <textarea class="form-input" name="description" cols="20" rows="3"></textarea>
+                        <input class="form-input" type="text" name="nickName">
+                        <input class="form-input" type="text" name="species">
+                        <input class="form-input" type="text" value="" name="locationFound">
+                        <textarea class="form-input" name="injury" cols="20" rows="3"></textarea>
                     </div>
             </form>
         </div>

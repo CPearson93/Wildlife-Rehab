@@ -14,7 +14,7 @@
         </div>
         <div id="nav-links">
             <h2></h2>
-            <a href="/shows">TV Shows</a>
+            <a href="/animalList">TV Shows</a>
             <a href="/logout">Logout</a>
         </div>
         {% with messages = get_flashed_messages() %}
@@ -25,20 +25,20 @@
         {% endif %}
         {% endwith %}
         <div id="main-body">
-            {% for show in shows %}
-            <form action="/shows/change/{{show.id}}" method="post">
+            {% for animal in animals %}
+            <form action="/animal/change/{{animal.id}}" method="post">
                 <div id="left-col">
-                        <label for="title">Title:</label>
-                        <label for="network">Network:</label>
-                        <label for="release_date">Release Date:</label>
-                        <label id="desc-label" for="description">Description:</label>
+                        <label for="nickName">Name:</label>
+                        <label for="species">species:</label>
+                        <label for="locationFound">Location found:</label>
+                        <label id="injury" for="injury">Injury:</label>
                         <input id="sub-button" type="submit" value="Update">
                     </div>
                     <div id="right-col">
-                        <input class="form-input" type="text" name="title" value="{{show.title}}">
-                        <input class="form-input" type="text" name="network" value="{{show.network}}">
-                        <input class="form-input" type="date" value="{{show.release_date}}" name="release_date">
-                        <textarea class="form-input" name="description" cols="20" rows="3">{{show.description}}</textarea>
+                        <input class="form-input" type="text" name="nickName" value="{{animal.nickName}}">
+                        <input class="form-input" type="text" name="species" value="{{animal.species}}">
+                        <input class="form-input" type="text" name="locationFound" value="{{animal.locationFound}}">
+                        <textarea class="form-input" name="injury" cols="20" rows="3">{{animal.injury}}</textarea>
                     </div>
                     {% endfor %}
             </form>

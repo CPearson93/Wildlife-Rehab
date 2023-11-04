@@ -13,29 +13,32 @@
             <h1>Welcome Back {{session['user_name']}}!</h1>
         </div>
         <div id="nav-links">
-            <a href="/shows/new">+ Create</a>
+            <a href="/animal/new">+ Create</a>
             <a href="/logout">Logout</a>
         </div>
         <div id="shows-table">
             <table class="table table-striped table-hover">
                 <thead>
                     <tr>
-                        <th>Title</th>
-                        <th>Network</th>
-                        <th>Release Date</th>
-                        <th>Actions</th>
+                        <th>Name</th>
+                        <th>Species</th>
+                        <th>Location</th>
+                        <th>Injury</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {% for show in shows %}
+                    {% for animal in animals %}
                     <tr>
-                        <td>{{show.title}}</td>
-                        <td>{{show.network}}</td>
-                        <td>{{show.release_date}}</td>
-                        {% if show.creator.id == session['user_id'] %}
-                        <td><a id="edit-button" href="/shows/{{show.id}}">View</a> <a id="edit-button" href="/shows/edit/{{show.id}}">Edit</a> <a id="delete-button"href="/delete/{{show.id}}">Delete</a></td>
+                        <td>{{animal.nickName}}</td>
+                        <td>{{animal.species}}</td>
+                        <td>{{animal.locationFound}}</td>
+                        <td>{{animal.injury}}</td>
+                        <td>{{animal.createdAt}}</td>
+                        <td>{{animal.updateAt}}</td>
+                        {% if animal.user.id == session['user_id'] %}
+                        <td><a id="edit-button" href="/animal/{{animal.id}}">View</a> <a id="edit-button" href="/animal/edit/{{animal.id}}">Edit</a> <a id="delete-button"href="/delete/{{animal.id}}">Delete</a></td>
                         {% else %}
-                        <td><a href="/shows/{{show.id}}">View</a></td>
+                        <td><a href="/animal/{{show.id}}">View</a></td>
                         {% endif %}
                         {% endfor %}
                     </tr>

@@ -10,20 +10,20 @@
 <body> 
     <div id="wrapper">
         <div id="nav-links">
-            <a href="/shows">TV Shows</a>
+            <a href="/animalList">Animals</a>
             <a href="/logout">Logout</a>
         </div>
         <div id="main-body">
             <div id="descriptors">
-                {% for show in shows %}
-                <h2>{{show.title}}</h2>
-                    <p>Network: {{show.network}}</p>
-                    <p>Released Date: {{show.release_date}}</p>
+                {% for animal in animals %}
+                <h2>{{animal.nickName}}</h2>
+                    <p>Network: {{animal.species}}</p>
+                    <p>Released Date: {{animal.locationFound}}</p>
                 <div>
                     <p>Description:</p>
-                    <p>{{show.description}}</p>
+                    <p>{{animal.injury}}</p>
                 </div>
-                <p>Posted By: {{show.creator.first_name}} {{show.creator.last_name}}</p>
+                <p>Posted By: {{animal.user.firstName}} {{animal.user.lastName}}</p>
                 {% endfor %}
             </div>
         </div>
