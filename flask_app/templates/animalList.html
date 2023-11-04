@@ -24,6 +24,8 @@
                         <th>Species</th>
                         <th>Location</th>
                         <th>Injury</th>
+                        <th>Created At</th>
+                        <th>Updated At</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -38,7 +40,7 @@
                         {% if animal.user.id == session['user_id'] %}
                         <td><a id="edit-button" href="/animal/{{animal.id}}">View</a> <a id="edit-button" href="/animal/edit/{{animal.id}}">Edit</a> <a id="delete-button"href="/delete/{{animal.id}}">Delete</a></td>
                         {% else %}
-                        <td><a href="/animal/{{show.id}}">View</a></td>
+                        <td><a href="/animal/{{animal.id}}">View</a></td>
                         {% endif %}
                         {% endfor %}
                     </tr>

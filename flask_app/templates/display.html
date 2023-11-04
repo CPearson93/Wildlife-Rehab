@@ -15,16 +15,14 @@
         </div>
         <div id="main-body">
             <div id="descriptors">
-                {% for animal in animals %}
-                <h2>{{animal.nickName}}</h2>
-                    <p>Network: {{animal.species}}</p>
-                    <p>Released Date: {{animal.locationFound}}</p>
+                <h2>{{animals.nickName}}</h2>
+                    <p>Species: {{animals.species}}</p>
+                    <p>Location found: {{animals.locationFound}}</p>
                 <div>
-                    <p>Description:</p>
-                    <p>{{animal.injury}}</p>
+                    <p>Injury:</p>
+                    <p>{{animals.injury}}</p>
                 </div>
-                <p>Posted By: {{animal.user.firstName}} {{animal.user.lastName}}</p>
-                {% endfor %}
+                <p>Posted By: {{animals.user.firstName}} {{animals.user.lastName}}</p>
             </div>
         </div>
     </div>

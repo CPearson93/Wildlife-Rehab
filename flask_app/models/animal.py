@@ -12,24 +12,24 @@ class Animal:
         self.injury = data['injury']
         self.createdAt = data['createdAt']
         self.updatedAt = data['updatedAt']
-        self.user = []
+        self.user = None
 
-        @staticmethod
-        def validate_animal(animal):
-            is_valid = True
-            if len(animal['nickName']) < 2:
-                is_valid = False
-                flash('Please use at least 2 characters for the nickname')
-            if len(animal['species']) < 2:
-                is_valid = False
-                flash('Please use at least 2 characters for the species')
-            if len(animal['locationFound']) < 7:
-                is_valid = False
-                flash('Please use at least 7 characters for the location')
-            if len(animal['injury']) < 10:
-                is_valid = False
-                flash('Please use at least 10 characters to describe the injury')
-            return is_valid
+    @staticmethod
+    def validate_animal(animal):
+        is_valid = True
+        if len(animal['nickName']) < 2:
+            is_valid = False
+            flash('Please use at least 2 characters for the nickname')
+        if len(animal['species']) < 2:
+            is_valid = False
+            flash('Please use at least 2 characters for the species')
+        if len(animal['locationFound']) < 3:
+            is_valid = False
+            flash('Please use at least 3 characters for the location')
+        if len(animal['injury']) < 5:
+            is_valid = False
+            flash('Please use at least 5 characters to describe the injury')
+        return is_valid
 
     @classmethod
     def getAll(cls):
@@ -41,26 +41,31 @@ class Animal:
         return animals
     
     @classmethod
-    def getOne(cls, data):
+    def getOne(cls, id):
+        data = {'id': id}
         query = "SELECT * FROM animals WHERE id = %(id)s;"
         results = connectToMySQL(cls.db).query_db(query, data)
-        if len(results) < 1:
-            return False
-        return cls(results[0])
+        print (results)
+        if results:
+            return cls(results[0])
+        return False
     
     @classmethod
     def save(cls, data):
         if not cls.validate_animal(data):
             return False
         animal_info = cls.register(data)
-        query = """INSERT INTO animals
-        (nickName, species, locationFound, injury) VALUES
-        (%(nickName)s, %(species)s, %(locationFound)s, %(injury)s);"""
-        return connectToMySQL(cls.db).query_db(query, animal_info)
+        query = """
+        INSERT INTO animals (user_id, nickName, species, locationFound, injury)
+        VALUES (%(user_id)s, %(nickName)s, %(species)s, %(locationFound)s, %(injury)s)
+        ;"""
+        animal_id = connectToMySQL(cls.db).query_db(query, animal_info)
+        return animal_id
     
     @staticmethod
     def register(data):
         run_data = {
+            "user_id": session['user_id'],
             'nickName': data['nickName'],
             'species': data['species'],
             'locationFound': data['locationFound'],

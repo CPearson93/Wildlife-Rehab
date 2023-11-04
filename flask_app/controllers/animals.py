@@ -6,6 +6,7 @@ from flask_app.models import animal
 def animals_list():
     if 'user_id' not in session: return redirect('/')
     animals = animal.Animal.getAll()
+    print (session['user_id'])
     return render_template('animalList.html', animals = animals)
 
 @app.route('/animal/new')
@@ -17,7 +18,7 @@ def animal_new():
 def animal_show():
     if 'user_id' not in session: return redirect('/')
     if animal.Animal.save(request.form):
-        return redirect('/animals')
+        return redirect('/animalList')
     return redirect("/animal/new")
 
 @app.route('/animal/edit/<int:num>')
@@ -38,7 +39,8 @@ def change(num):
 @app.route('/animal/<int:num>')
 def show_display(num):
     if 'user_id' not in session: return redirect('/')
-    animals = animal.Animal.get_this_animal(num)
+    animals = animal.Animal.getOne(num)
+    print (animals)
     return render_template('display.html', animals = animals)
 
 @app.route('/delete/<int:num>')
