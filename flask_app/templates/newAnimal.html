@@ -8,29 +8,38 @@
     <title>Wildlife Rescue and Rehabilitation</title>
 </head>
 <body>
-    <div id="wrapper">
-        <div>
-            <h1>Add a New Show!</h1>
-        </div>
+    <div id="nav-bar">
+        <h1>Wildlife Rescue and Rehabilitation</h1>
         <div id="nav-links">
-            <h2></h2>
-            <a href="/animalList">Animals</a>
-            <a href="/logout">Logout</a>
+            {% if session['user_name'] %}
+            <h4 id="welcome">Welcome back, {{session['user_name']}}!</h4>
+            <a class="nav-one" href="/animalList">Animals under our care</a>
+            <a class="nav-one" href="/logout">Logout</a>
+            {% else %}
+            <a class="nav-one" href="/animalList">Animals under our care</a>
+            <a class="nav-one" href="/logreg">Login / Register</a>
+            {% endif %}
         </div>
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-        {% for message in messages %}
-        <p>{{message}}</p>
-        {% endfor %}
-        {% endif %}
-        {% endwith %}
-        <div id="main-body">
-            <form action="/animal/create" method="post">
-                <div id="left-col">
-                        <label for="nickName">Nickname:</label>
-                        <label for="species">Species:</label>
-                        <label for="locationFound">locationFound:</label>
-                        <label id="injury" for="description">Injury:</label>
+    </div>
+    <div id="wrapper">
+        <div id="page-body">
+            <div id="main-body">
+                <div>
+                    <h2>Add a New Animal!</h2>
+                </div>
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                {% for message in messages %}
+                <p>{{message}}</p>
+                {% endfor %}
+                {% endif %}
+                {% endwith %}
+                <form action="/animal/create" method="post">
+                    <div id="left-col">
+                        <label for="nickName"><h4>Nickname:</h4></label>
+                        <label for="species"><h4>Species:</h4></label>
+                        <label for="locationFound"><h4>Location Found:</h4></label>
+                        <label id="injury" for="description"><h4>Injury:</h4></label>
                         <input id="sub-button" type="submit" value="Add">
                     </div>
                     <div id="right-col">
@@ -39,7 +48,8 @@
                         <input class="form-input" type="text" value="" name="locationFound">
                         <textarea class="form-input" name="injury" cols="20" rows="3"></textarea>
                     </div>
-            </form>
+                </form>
+            </div>
         </div>
     </div>
 </body>

@@ -1,0 +1,105 @@
+body{
+    margin: 0px;
+    width: 1920px;
+    height: 900px;
+}
+
+#wrapper{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#nav-bar{
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: #fff;
+}
+
+#welcome{
+    margin-right: 20px;
+    margin-top: 10px;
+}
+
+#nav-links{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    background-color: #fff;
+    border-top: 2px #eee solid;
+}
+
+.nav-one{
+    border: 1px black solid;
+    margin-left: 1px;
+}
+
+a:link, a:visited {
+    background-color: mediumaquamarine;
+    color: white;
+    padding: 14px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+
+a:hover, a:active {
+    background-color: lightseagreen;
+}
+
+#page-body{
+    height: 100%;
+    width: 100%;
+    background-color: lightgray;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-content: center;
+}
+
+.page-parts{
+    background-color: lightblue;
+    border: 2px black solid;
+    height: 33%;
+    width: 60%;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: space-around;
+}
+
+.body-info{
+    height: 40%;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.body-pic{
+    height: 60%;
+    width: 40%;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+}
+
+.sub-info{
+    border: 2px black dotted;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+}
+
+b{
+    margin: 3px;
+}

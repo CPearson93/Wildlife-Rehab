@@ -17,13 +17,13 @@ def loginPage():
 @app.route("/register", methods=['POST'])
 def create_user():
     if user.User.create_user(request.form):
-        return redirect('/animalList')
+        return redirect('/')
     return redirect('/logreg')
 
 @app.route("/login", methods = ['POST'])
 def login():
     if user.User.login(request.form):
-        return redirect("/animalList")
+        return redirect("/")
     return redirect("/logreg")
 
 # Logout clear session

@@ -8,9 +8,65 @@
     <title>Wildlife Rescue and Rehabilitation</title>
 </head>
 <body>
-    <h1>Home Page</h1>
-    <a href="/logreg">Login</a>
-    <a href="/animalList">Animals</a>
-    <script type="text/javascript" src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+    <div id="nav-bar">
+        <h1>Wildlife Rescue and Rehabilitation</h1>
+        <div id="nav-links">
+            {% if session['user_name'] %}
+            <h4 id="welcome">Welcome back, {{session['user_name']}}!</h4>
+            <a class="nav-one" href="/animalList">Animals under our care</a>
+            <a class="nav-one" href="/logout">Logout</a>
+            {% else %}
+            <a class="nav-one" href="/animalList">Animals under our care</a>
+            <a class="nav-one" href="/logreg">Login / Register</a>
+            {% endif %}
+        </div>
+    </div>
+    <div id="wrapper">
+        <div id="page-body">
+            <div class="page-parts">
+                <div class="body-info">
+                    <h2>Contact us!</h2>
+                    <div class="sub-info">
+                        <b>Emergency Line: 999-999-9999</b>
+                        <b>Front Desk: 000-000-0000</b>
+                        <b>Management: 111-111-1111</b>
+                    </div>
+                </div>
+                <div class="body-pic">
+                    <img src="static/asset/rescue-dog.png" alt="Two people with rescue dog">
+                </div>
+            </div>
+            <div class="page-parts">
+                <div class="body-pic">
+                    <img src="static/asset/rescue-cat.jpg" alt="Lady with rescue cat">
+                </div>
+                <div class="body-info">
+                    <h2>Hours</h2>
+                    <div class="sub-info">
+                        <b>Sunday: 09:00am - 10:00pm</b>
+                        <b>Monday: 09:00am - 10:00pm</b>
+                        <b>Tuesday: 09:00am - 10:00pm</b>
+                        <b>Wednesday: 09:00am - 10:00pm</b>
+                        <b>Thursday: 09:00am - 10:00pm</b>
+                        <b>Friday: 09:00am - 10:00pm</b>
+                        <b>Saturday: 09:00am - 10:00pm</b>
+                    </div>
+                </div>
+            </div>
+            <div class="page-parts">
+                <div class="body-info">
+                    <h2>Location</h2>
+                    <div class="sub-info">
+                        <b>Main address:</b>
+                        <b>1234 Park Street,</b>
+                        <b>Somewhere, Some Place 11111</b>
+                    </div>
+                </div>
+                <div class="body-pic">
+                    <img src="static/asset/rescue-dog-2.jpg" alt="Two men holding two dogs">
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

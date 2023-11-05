@@ -8,14 +8,21 @@
     <title>Wildlife Rescue and Rehabilitation</title>
 </head>
     <body>
-        <h1>Welcome please register or login!</h1>
-            <div id="main-body">
+        <div id="nav-bar">
+            <h1>Wildlife Rescue and Rehabilitation</h1>
+            <div id="nav-links">
+                <a class="nav-one" href="/">Home</a>
+            </div>
+            <h2>Welcome please register or login!</h2>
+        </div>
+        <div id="wrapper">
+            <div id="page-body">
                 <div id="left-col">
                     <p class="col-title">Register</p>
                     {% with messages = get_flashed_messages() %}
                         {% if messages %}
                             {% for message in messages %}
-                            <p>{{message}}</p>
+                                <p>{{message}}</p>
                             {% endfor %}
                         {% endif %}
                     {% endwith %}
@@ -35,15 +42,14 @@
                 </div>
                 <div id="right-col">
                     <p class="col-title">Login</p>
-                    {% with messages = get_flashed_messages() %}
+                    {% with messages = get_flashed_messages() %}                    
                     {% if messages %}
-                        {% for message in messages %}
-                        <p>{{message}}</p>
-                        {% endfor %}
+                    {% for message in messages %}
+                    <p>{{message}}</p>
+                    {% endfor %}
                     {% endif %}
-                {% endwith %}
-                    <form class="reg-form" action="/login" method="post">
-                        <label for="email">Email:</label>
+                    {% endwith %}
+                    <form class="reg-form" action="/login" method="post">                        <label for="email">Email:</label>
                         <input type="text" name="email">
                         <label for="password">Password:</label>
                         <input type="password" name="password">
@@ -51,5 +57,6 @@
                     </form>
                 </div>
             </div>
+        </div>
     </body>
 </html>

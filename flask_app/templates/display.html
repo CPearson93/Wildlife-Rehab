@@ -8,19 +8,38 @@
     <title>Wildlife Rescue and Rehabilitation</title>
 </head>
 <body> 
-    <div id="wrapper">
+    <div id="nav-bar">
+        <h1>Wildlife Rescue and Rehabilitation</h1>
         <div id="nav-links">
-            <a href="/animalList">Animals</a>
-            <a href="/logout">Logout</a>
+            {% if session['user_name'] %}
+            <h4 id="welcome">Welcome back, {{session['user_name']}}!</h4>
+            <a class="nav-one" href="/animalList">Animals under our care</a>
+            <a class="nav-one" href="/logout">Logout</a>
+            {% else %}
+            <a class="nav-one" href="/animalList">Animals under our care</a>
+            <a class="nav-one" href="/logreg">Login / Register</a>
+            {% endif %}
         </div>
-        <div id="main-body">
-            <div id="descriptors">
-                <h2>{{animals.nickName}}</h2>
-                    <p>Species: {{animals.species}}</p>
-                    <p>Location found: {{animals.locationFound}}</p>
-                <div>
-                    <p>Injury:</p>
-                    <p>{{animals.injury}}</p>
+    </div>
+    <div id="wrapper">
+        <div id="page-body">
+            <div id="main-body">
+                <div id="descriptors">
+                    <div class="display">
+                        <h2>{{animals.nickName}}</h2>
+                    </div>
+                    <div class="display">
+                        <h4>Species:</h4>
+                        <p>{{animals.species}}</p>
+                    </div>
+                    <div class="display">
+                        <h4>Location found:</h4>
+                        <p>{{animals.locationFound}}</p>
+                    </div>
+                    <div class="display">
+                        <h4>Injury:</h4>
+                        <p>{{animals.injury}}</p>
+                    </div>
                 </div>
             </div>
         </div>
