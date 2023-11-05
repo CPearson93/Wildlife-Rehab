@@ -1,12 +1,12 @@
 from flask import render_template, request, redirect, session, flash
 from flask_app import app
 from flask_app.models import animal
+from flask_app.models import user
 
 @app.route('/animalList')
 def animals_list():
     if 'user_id' not in session: return redirect('/')
     animals = animal.Animal.getAll()
-    print (session['user_id'])
     return render_template('animalList.html', animals = animals)
 
 @app.route('/animal/new')
@@ -25,7 +25,7 @@ def animal_show():
 def animal_edit(num):
     if 'user_id' not in session: return redirect('/')
     if animal.Animal.validate_action(num):
-        animals = animal.Animal.get_this_show(num)
+        animals = animal.Animal.getOne(num)
         return render_template('updateAnimal.html', animals = animals)
     return redirect('/animalList')
 
@@ -36,10 +36,10 @@ def change(num):
         return redirect('/animalList')
     return redirect(f'/animal/edit/{num}')
 
-@app.route('/animal/<int:num>')
-def show_display(num):
+@app.route('/animal/<int:id>')
+def animal_display(id):
     if 'user_id' not in session: return redirect('/')
-    animals = animal.Animal.getOne(num)
+    animals = animal.Animal.getOne(id)
     print (animals)
     return render_template('display.html', animals = animals)
 
@@ -47,6 +47,6 @@ def show_display(num):
 def delete(num):
     if 'user_id' not in session: return redirect('/')
     if animal.Animal.validate_action(num):
-        animal.Animal.remove_show(num)
+        animal.Animal.delete(num)
         return redirect('/animalList')
     return redirect('/animalList')

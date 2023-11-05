@@ -10,11 +10,11 @@
 <body>
     <div id="wrapper">
         <div>
-            <h1>Add a New Show!</h1>
+            <h1>Add a New Animal!</h1>
         </div>
         <div id="nav-links">
             <h2></h2>
-            <a href="/animalList">TV Shows</a>
+            <a href="/animalList">Animals</a>
             <a href="/logout">Logout</a>
         </div>
         {% with messages = get_flashed_messages() %}
@@ -25,8 +25,7 @@
         {% endif %}
         {% endwith %}
         <div id="main-body">
-            {% for animal in animals %}
-            <form action="/animal/change/{{animal.id}}" method="post">
+            <form action="/animal/change/{{animals.id}}" method="post">
                 <div id="left-col">
                         <label for="nickName">Name:</label>
                         <label for="species">species:</label>
@@ -35,12 +34,11 @@
                         <input id="sub-button" type="submit" value="Update">
                     </div>
                     <div id="right-col">
-                        <input class="form-input" type="text" name="nickName" value="{{animal.nickName}}">
-                        <input class="form-input" type="text" name="species" value="{{animal.species}}">
-                        <input class="form-input" type="text" name="locationFound" value="{{animal.locationFound}}">
-                        <textarea class="form-input" name="injury" cols="20" rows="3">{{animal.injury}}</textarea>
+                        <input class="form-input" type="text" name="nickName" value="{{animals.nickName}}">
+                        <input class="form-input" type="text" name="species" value="{{animals.species}}">
+                        <input class="form-input" type="text" name="locationFound" value="{{animals.locationFound}}">
+                        <textarea class="form-input" name="injury" cols="20" rows="3">{{animals.injury}}</textarea>
                     </div>
-                    {% endfor %}
             </form>
         </div>
     </div>

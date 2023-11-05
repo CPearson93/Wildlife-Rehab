@@ -26,21 +26,26 @@
                         <th>Injury</th>
                         <th>Created At</th>
                         <th>Updated At</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for animal in animals %}
                     <tr>
-                        <td>{{animal.nickName}}</td>
+                        <td><a href="/animal/{{animal.id}}">{{animal.nickName}}</a></td>
                         <td>{{animal.species}}</td>
                         <td>{{animal.locationFound}}</td>
-                        <td>{{animal.injury}}</td>
+                        <td>{{ ('\n' ~ animal.injury) | wordwrap(15) | replace('\n', '') }}</td>
                         <td>{{animal.createdAt}}</td>
-                        <td>{{animal.updateAt}}</td>
-                        {% if animal.user.id == session['user_id'] %}
-                        <td><a id="edit-button" href="/animal/{{animal.id}}">View</a> <a id="edit-button" href="/animal/edit/{{animal.id}}">Edit</a> <a id="delete-button"href="/delete/{{animal.id}}">Delete</a></td>
+                        <td>{{animal.updatedAt}}</td>
+                        {% if animal.creator.id == session['user_id'] %}
+                        <td>
+                            <a id="edit-button" href="/animal/edit/{{animal.id}}">Edit</a>
+                            <a id="delete-button"href="/delete/{{animal.id}}">Delete</a>
+                        </td>
                         {% else %}
-                        <td><a href="/animal/{{animal.id}}">View</a></td>
+                        <td><p>Not Working</p></td>
+                        <td><p>{{animal.user_id}}</p></td>
                         {% endif %}
                         {% endfor %}
                     </tr>

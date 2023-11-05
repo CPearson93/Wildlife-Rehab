@@ -101,9 +101,9 @@ class User:
     def getOne(cls, data):
         query = "SELECT * FROM users WHERE id = %(id)s;"
         results = connectToMySQL(cls.db).query_db(query, data)
-        if len(results) < 1:
-            return False
-        return cls(results[0])
+        if results:
+            return cls(results[0])
+        return False
     
     @classmethod
     def getEmail(cls, email):

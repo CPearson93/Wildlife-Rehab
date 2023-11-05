@@ -12,7 +12,7 @@ class Animal:
         self.injury = data['injury']
         self.createdAt = data['createdAt']
         self.updatedAt = data['updatedAt']
-        self.user = None
+        self.creator = None
 
     @staticmethod
     def validate_animal(animal):
@@ -33,21 +33,33 @@ class Animal:
 
     @classmethod
     def getAll(cls):
-        query = 'SELECT * FROM animals;'
+        query = """SELECT * FROM animals
+        JOIN users ON users.id = animals.user_id;"""
         results = connectToMySQL(cls.db).query_db(query)
-        animals = []
+        all_animals = []
         for row in results:
-            animals.append(cls(row))
-        return animals
-    
+            animal = cls(row)
+            userData = {
+                'id': row ['users.id'],
+                'firstName': row['firstName'],
+                'lastName': row['lastName'],
+                'email': row['email'],
+                'password': row['password'],
+                'createdAt': row['createdAt'],
+                'updateAt': row['updateAt'],
+            }
+            animal.creator = user.User(userData)
+            all_animals.append(animal)
+        return all_animals
+
     @classmethod
     def getOne(cls, id):
         data = {'id': id}
-        query = "SELECT * FROM animals WHERE id = %(id)s;"
+        query = "SELECT * FROM animals WHERE id = %(id)s"
         results = connectToMySQL(cls.db).query_db(query, data)
         print (results)
         if results:
-            return cls(results[0])
+            return (results[0])
         return False
     
     @classmethod
@@ -75,33 +87,28 @@ class Animal:
         return(run_data)
     
     @classmethod
-    def update(cls, data):
+    def update(cls, data, id):
+        if not cls.validate_animal(data):
+            return False
+        data = cls.register(data)
         query = """UPDATE animals SET
         nickName = %(nickName)s,
         species = %(species)s,
         locationFound = %(locationFound)s,
         injury = %(injury)s,"""
+        animal_id = connectToMySQL(cls.db).query_db(query, data)
+        return animal_id
 
     @classmethod
-    def delete(cls, data):
+    def delete(cls, num):
         query = 'DELETE FROM animals WHERE id = %(id)s;'
+        data = {'id': num}
         return connectToMySQL(cls.db).query_db(query, data)
     
-    @classmethod
-    def animalUser(cls, data):
-        query = """SELECT * FROM animals
-        LEFT JOIN users ON animals.user_id = users.id where animals.id = %(id)s;"""
-        results = connectToMySQL(cls.db).query_db(query, data)
-        for row in results:
-            animals = cls(row)
-            userData = {
-                'id': row ['user.id'],
-                'firstName': row['firstName'],
-                'lastName': row['lastName'],
-                'email': row['email'],
-                'password': row['password'],
-                'createdAt': row['user.createdAt'],
-                'updatedAt': row['user.updatedAt'],
-            }
-            animals.user = user.User(userData)
-        return animals
+    @staticmethod
+    def validate_action(num):
+        this_animal = Animal.getOne(num)
+        is_valid = True
+        if session['user_id'] != this_animal["user_id"]:
+            is_valid = False
+        return is_valid
