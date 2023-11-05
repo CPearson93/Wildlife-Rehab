@@ -86,12 +86,6 @@ a:hover, a:active {
     justify-content: space-evenly;
 }
 
-#image-logo{
-    margin-right: 50px;
-    display: flex;
-    justify-content: flex-end;
-}
-
 .display{
     margin-left: 40px;
     display: flex;
