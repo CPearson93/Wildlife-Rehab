@@ -9,17 +9,16 @@
 </head>
 <body>
     <div id="nav-bar">
-        <h1>Wildlife Rescue and Rehabilitation</h1>
         <div id="nav-links">
             {% if session['user_name'] %}
             <h4 id="welcome">Welcome back, {{session['user_name']}}!</h4>
             <a class="nav-one" href="/animalList">Animals under our care</a>
             <a class="nav-one" href="/logout">Logout</a>
             {% else %}
-            <a class="nav-one" href="/animalList">Animals under our care</a>
             <a class="nav-one" href="/logreg">Login / Register</a>
             {% endif %}
         </div>
+        <h1>Wildlife Rescue and Rehabilitation</h1>
     </div>
     <div id="wrapper">
         <div id="page-body">
