@@ -66,7 +66,7 @@ class Animal:
     def save(cls, data):
         if not cls.validate_animal(data):
             return False
-        animal_info = cls.register(data)
+        animal_info = cls.saveData(data)
         query = """
         INSERT INTO animals (user_id, nickName, species, locationFound, injury)
         VALUES (%(user_id)s, %(nickName)s, %(species)s, %(locationFound)s, %(injury)s)
@@ -75,7 +75,7 @@ class Animal:
         return animal_id
     
     @staticmethod
-    def register(data):
+    def saveData(data):
         run_data = {
             "user_id": session['user_id'],
             'nickName': data['nickName'],
@@ -90,14 +90,27 @@ class Animal:
     def update(cls, data, id):
         if not cls.validate_animal(data):
             return False
-        data = cls.register(data)
-        query = """UPDATE animals SET
-        nickName = %(nickName)s,
-        species = %(species)s,
-        locationFound = %(locationFound)s,
-        injury = %(injury)s,"""
+        data = cls.updateData(data, id)
+        query = """UPDATE animals
+        SET nickName = %(nickName)s, species = %(species)s, locationFound = %(locationFound)s, injury = %(injury)s
+        WHERE id = %(id)s;"""
         animal_id = connectToMySQL(cls.db).query_db(query, data)
-        return animal_id
+        if animal_id:
+            return False
+        return True
+    
+    @staticmethod
+    def updateData(data, num):
+        run_data = {
+            "id": num,
+            "user_id": session['user_id'],
+            'nickName': data['nickName'],
+            'species': data['species'],
+            'locationFound': data['locationFound'],
+            'injury': data['injury']
+        }
+        print('!?!?!?!?!?!?', run_data)
+        return(run_data)
 
     @classmethod
     def delete(cls, num):
@@ -106,7 +119,7 @@ class Animal:
         return connectToMySQL(cls.db).query_db(query, data)
     
     @staticmethod
-    def validate_action(num):
+    def is_user_creator_of_animal(num):
         this_animal = Animal.getOne(num)
         is_valid = True
         if session['user_id'] != this_animal["user_id"]:

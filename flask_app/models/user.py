@@ -19,10 +19,6 @@ class User:
         self.updateAt = data['updateAt']
         self.animals = []
 
-        def fullName(self):
-            return f'{self.firstName} {self.lastName}'
-
-        #  validates register / login
     @staticmethod
     def validate_user(user):
         is_valid = True
@@ -51,18 +47,6 @@ class User:
             flash("Passwords do not match")
         return is_valid
 
-    @staticmethod
-    def login(data):
-        this_user = User.getEmail(data['email'])
-        if this_user:
-            if bcrypt.check_password_hash(this_user.password, data['password']):
-                session['user_id'] = this_user.id
-                session['user_name'] = f'{this_user.firstName} {this_user.lastName}'
-                return True
-        flash("Your login email or password was wrong.")
-        return False
-
-#  Saves data to db
     @classmethod
     def create_user(cls, data):
         if not cls.validate_user(data):
@@ -88,9 +72,36 @@ class User:
         print('!?!?!?!?!?!?', run_data)
         return(run_data)
     
+    @staticmethod
+    def login(data):
+        this_user = User.getEmail(data['email'])
+        if this_user:
+            if bcrypt.check_password_hash(this_user.password, data['password']):
+                session['user_id'] = this_user.id
+                session['user_name'] = f'{this_user.firstName} {this_user.lastName}'
+                return True
+        flash("Your login email or password was wrong.")
+        return False
+
+    @classmethod
+    def getEmail(cls, email):
+        data = {'email': email}
+        query = """
+        SELECT *
+        FROM users
+        WHERE email = %(email)s
+        ;"""
+        results = connectToMySQL(cls.db).query_db(query, data)
+        if results:
+            return cls(results[0])
+        return False
+    
     @classmethod
     def getAll(cls):
-        query = 'SELECT * FROM users;'
+        query = """
+        SELECT *
+        FROM users
+        ;"""
         results = connectToMySQL(cls.db).query_db(query)
         users = []
         for row in results:
@@ -99,38 +110,13 @@ class User:
     
     @classmethod
     def getOne(cls, data):
-        query = "SELECT * FROM users WHERE id = %(id)s;"
+        query = """
+        SELECT *
+        FROM users 
+        WHERE id = %(id)s
+        ;"""
         results = connectToMySQL(cls.db).query_db(query, data)
         if results:
             return cls(results[0])
         return False
     
-    @classmethod
-    def getEmail(cls, email):
-        data = {'email': email}
-        query = "SELECT * FROM users WHERE email = %(email)s;"
-        results = connectToMySQL(cls.db).query_db(query, data)
-        if results:
-            return cls(results[0])
-        return False
-    
-    @classmethod
-    def save(cls, data):
-        query ="""INSERT INTO users 
-        (firstName, lastName, email, password) VALUES
-        (%(firstName)s, %(lastName)s, %(email)s, %(password)s);"""
-        return connectToMySQL(cls.db).query_db(query, data)
-    
-    @classmethod
-    def update(cls, data):
-        query = """UPDATE users 
-        SET
-        firstName = %(firstName)s,
-        lastName = %(lastName)s,
-        email = %(email)s,
-        password = %(password)s"""
-
-    @classmethod
-    def delete(cls, data):
-        query = 'DELETE FROM users WHERE id = %(id)s;'
-        return connectToMySQL(cls.db).query_db(query, data)

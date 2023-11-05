@@ -24,7 +24,7 @@ def animal_show():
 @app.route('/animal/edit/<int:num>')
 def animal_edit(num):
     if 'user_id' not in session: return redirect('/')
-    if animal.Animal.validate_action(num):
+    if animal.Animal.is_user_creator_of_animal(num):
         animals = animal.Animal.getOne(num)
         return render_template('updateAnimal.html', animals = animals)
     return redirect('/animalList')
@@ -32,7 +32,7 @@ def animal_edit(num):
 @app.route('/animal/change/<int:num>', methods = ["POST"])
 def change(num):
     if 'user_id' not in session: return redirect('/')
-    if animal.Animal.update_animal(request.form, num):
+    if animal.Animal.update(request.form, num):
         return redirect('/animalList')
     return redirect(f'/animal/edit/{num}')
 
@@ -46,7 +46,7 @@ def animal_display(id):
 @app.route('/delete/<int:num>')
 def delete(num):
     if 'user_id' not in session: return redirect('/')
-    if animal.Animal.validate_action(num):
+    if animal.Animal.is_user_creator_of_animal(num):
         animal.Animal.delete(num)
         return redirect('/animalList')
     return redirect('/animalList')

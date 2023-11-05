@@ -35,7 +35,7 @@
                         <td><a href="/animal/{{animal.id}}">{{animal.nickName}}</a></td>
                         <td>{{animal.species}}</td>
                         <td>{{animal.locationFound}}</td>
-                        <td>{{ ('\n' ~ animal.injury) | wordwrap(15) | replace('\n', '') }}</td>
+                        <td>{{ ('\n' ~ animal.injury) | wordwrap(50) | replace('\n', '') }}</td>
                         <td>{{animal.createdAt}}</td>
                         <td>{{animal.updatedAt}}</td>
                         {% if animal.creator.id == session['user_id'] %}
@@ -44,8 +44,7 @@
                             <a id="delete-button"href="/delete/{{animal.id}}">Delete</a>
                         </td>
                         {% else %}
-                        <td><p>Not Working</p></td>
-                        <td><p>{{animal.user_id}}</p></td>
+                        <td><p>Not your post</p></td>
                         {% endif %}
                         {% endfor %}
                     </tr>
