@@ -40,7 +40,6 @@ def change(num):
 def animal_display(id):
     if 'user_id' not in session: return redirect('/')
     animals = animal.Animal.getOne(id)
-    print (animals)
     return render_template('display.html', animals = animals)
 
 @app.route('/delete/<int:num>')
