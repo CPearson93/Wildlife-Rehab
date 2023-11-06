@@ -1,7 +1,8 @@
 body{
     margin: 0px;
+    padding: 0px;
+    height: 1051px;
     width: 1920px;
-    height: 819px;
 }
 
 #wrapper{
@@ -18,7 +19,7 @@ body{
     align-content: center;
     align-items: center;
     flex-direction: column;
-    background-color: #fff;
+    background-color: #75af96;
 }
 
 #welcome{
@@ -30,8 +31,8 @@ body{
     display: flex;
     justify-content: flex-start;
     width: 100%;
-    background-color: #fff;
-    border-bottom: 2px #eee solid;
+    background-color: #75af96;
+    border-bottom: 2px black solid;
 }
 
 .nav-one{
@@ -64,7 +65,7 @@ a:hover, a:active {
 }
 
 .page-parts{
-    background-color: mediumaquamarine;
+    background-color: #75af96;
     border: 2px black solid;
     height: 33%;
     width: 60%;

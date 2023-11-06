@@ -40,7 +40,7 @@
                     <tbody>
                         {% for animal in animals %}
                         <tr>
-                            <td><a href="/animal/{{animal.id}}">{{animal.nickName}}</a></td>
+                            <td><a href="/animal/{{animal.id}}"><b>{{animal.nickName}}</b></a></td>
                             <td>{{animal.species}}</td>
                             <td>{{animal.locationFound}}</td>
                             <td>{{ ('\n' ~ animal.injury) | wordwrap(50) | replace('\n', '') }}</td>
