@@ -55,7 +55,7 @@ a:hover, a:active {
 #page-body{
     height: 100%;
     width: 100%;
-    background-color: lightgray;
+    background-image: url("../asset/forest-background.png");
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
@@ -64,7 +64,7 @@ a:hover, a:active {
 }
 
 .page-parts{
-    background-color: lightblue;
+    background-color: mediumaquamarine;
     border: 2px black solid;
     height: 33%;
     width: 60%;

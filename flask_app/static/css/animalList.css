@@ -9,7 +9,7 @@ body{
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: lightblue;
+    background-image: url("../asset/forest-background.png");
 }
 
 #nav-bar{
@@ -56,7 +56,7 @@ body{
     height: 70%;
     width: 80%;
     margin-top: 50px;
-    background-color: #fff;
+    background-color: peachpuff;
 }
 
 #shows-table{

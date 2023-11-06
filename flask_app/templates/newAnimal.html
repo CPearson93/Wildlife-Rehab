@@ -31,16 +31,16 @@
                 {% with messages = get_flashed_messages() %}
                 {% if messages %}
                 {% for message in messages %}
-                <p>{{message}}</p>
+                <p class="flash-message">{{message}}</p>
                 {% endfor %}
                 {% endif %}
                 {% endwith %}
                 <form action="/animal/create" method="post">
                     <div id="left-col">
-                        <label for="nickName"><h4>Nickname:</h4></label>
-                        <label for="species"><h4>Species:</h4></label>
-                        <label for="locationFound"><h4>Location Found:</h4></label>
-                        <label id="injury" for="description"><h4>Injury:</h4></label>
+                        <label for="nickName"><h3>Nickname:</h3></label>
+                        <label for="species"><h3>Species:</h3></label>
+                        <label for="locationFound"><h3>Location Found:</h3></label>
+                        <label id="injury" for="description"><h3>Injury:</h3></label>
                         <input id="sub-button" type="submit" value="Add">
                     </div>
                     <div id="right-col">
