@@ -108,6 +108,29 @@ a:hover, a:active {
     align-content: center;
 }
 
+#hours-info{
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+}
+
+#sub-hours-1{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+    align-items: flex-end;
+    height: 56%;
+    width: 35%;
+}
+
+#sub-hours-2{
+    display: flex;
+    flex-direction: column;
+    height: 50%;
+    width: 45%;
+}
+
 b{
     margin: 3px;
 }
