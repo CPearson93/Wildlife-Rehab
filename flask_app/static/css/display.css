@@ -53,14 +53,6 @@ a:hover, a:active {
     background-color: lightseagreen;
 }
 
-#main-body{
-    height: 50%;
-    width: 35%;
-    border: 2px solid black;
-    background-color: mediumaquamarine;
-    display: flex;
-    justify-content: flex-start;
-}
 
 #page-body{
     height: 100%;
@@ -69,8 +61,18 @@ a:hover, a:active {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: flex-start;
     align-content: center;
+}
+
+#main-body{
+    height: 50%;
+    width: 35%;
+    margin-top: 50px;
+    border: 2px solid black;
+    background-color: mediumaquamarine;
+    display: flex;
+    justify-content: flex-start;
 }
 
 #nav-buttons{

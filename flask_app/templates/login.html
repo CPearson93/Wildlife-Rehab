@@ -14,18 +14,18 @@
             </div>
             <h1>Wildlife Rescue and Rehabilitation</h1>
             <h2>Welcome please register or login!</h2>
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <b id="err-msg">{{message}}</b>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
         </div>
         <div id="wrapper">
             <div id="page-body">
                 <div id="left-col">
                     <p class="col-title">Register</p>
-                    {% with messages = get_flashed_messages() %}
-                        {% if messages %}
-                            {% for message in messages %}
-                                <p>{{message}}</p>
-                            {% endfor %}
-                        {% endif %}
-                    {% endwith %}
                     <form class="reg-form" action="/register" method="post">
                         <label for="firstName">First Name:</label>
                         <input type="text" name="firstName">
@@ -42,13 +42,6 @@
                 </div>
                 <div id="right-col">
                     <p class="col-title">Login</p>
-                    {% with messages = get_flashed_messages() %}                    
-                    {% if messages %}
-                    {% for message in messages %}
-                    <p>{{message}}</p>
-                    {% endfor %}
-                    {% endif %}
-                    {% endwith %}
                     <form class="reg-form" action="/login" method="post">                        <label for="email">Email:</label>
                         <input type="text" name="email">
                         <label for="password">Password:</label>

@@ -58,7 +58,7 @@ h2{
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    border-top: 2px #eee solid;
+    border-top: 2px black solid;
 }
 
 #page-body{
@@ -80,6 +80,7 @@ h2{
 
 #left-col{
     border: 2px solid black;
+    margin-top: 20px;
     margin-right: 2px;
     background-color: mediumaquamarine;
     width: 40%;
@@ -97,10 +98,15 @@ h2{
 #right-col{
     border: 2px solid black;
     margin-right: 2px;
+    margin-top: 20px;
     width: 40%;
     background-color: mediumaquamarine;
     display: flex;
     flex-direction: column;
+}
+
+#err-msg{
+    color: red;
 }
 
 a{
