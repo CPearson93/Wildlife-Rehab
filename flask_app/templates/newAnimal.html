@@ -21,6 +21,13 @@
             {% endif %}
         </div>
         <h1>Wildlife Rescue and Rehabilitation</h1>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        {% for message in messages %}
+        <b id="flash-message">{{message}}</b>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
     </div>
     <div id="wrapper">
         <div id="page-body">
@@ -28,13 +35,6 @@
                 <div>
                     <h2>Add a New Animal!</h2>
                 </div>
-                {% with messages = get_flashed_messages() %}
-                {% if messages %}
-                {% for message in messages %}
-                <p class="flash-message">{{message}}</p>
-                {% endfor %}
-                {% endif %}
-                {% endwith %}
                 <form action="/animal/create" method="post">
                     <div id="left-col">
                         <label for="nickName"><h3>Nickname:</h3></label>

@@ -56,7 +56,7 @@ a:hover, a:active {
 #page-body{
     height: 100%;
     width: 100%;
-    background-image: url("../asset/forest-background.png");
+    background-image: url("../asset/forest-background.webp");
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -70,21 +70,18 @@ a:hover, a:active {
     width: 60%;
     display: flex;
     flex-direction: column;
-    align-content: center;
     align-items: center;
     justify-content: center;
 }
 
 h2{
-    margin-right: 50px;
     padding: 5px;
     background-color: mediumaquamarine;
     border: 2px black solid;
 }
 
-.flash-message{
-    background-color: mediumaquamarine;
-    border: 2px black solid;
+#flash-message{
+    color: red;
 }
 
 #left-col{
@@ -131,7 +128,7 @@ textarea{
     border-left: 2px dotted black;
     background-color: mediumaquamarine;
     height: 100%;
-    width: 70%;
+    width: 60%;
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;

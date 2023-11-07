@@ -64,7 +64,7 @@ h2{
 #page-body{
     height: 100%;
     width: 100%;
-    background-image: url("../asset/forest-background.png");
+    background-image: url("../asset/forest-background.webp");
     display: flex;
     flex-wrap: wrap;
     justify-content: center;

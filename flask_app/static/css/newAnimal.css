@@ -56,11 +56,11 @@ a:hover, a:active {
 #page-body{
     height: 100%;
     width: 100%;
-    background-image: url("../asset/forest-background.png");
+    background-image: url("../asset/forest-background.webp");
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     align-content: center;
     flex-direction: column;
 }
@@ -82,9 +82,8 @@ h2{
     border: 2px black solid;
 }
 
-.flash-message{
-    background-color: mediumaquamarine;
-    border: 2px black solid;
+#flash-message{
+    color: red;
 }
 
 #left-col{
